@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://be1bwmcly12ir"]
+
+[ext_resource type="Script" uid="uid://iph7mh3eosbn" path="res://components/main_game.gd" id="1_gee14"]
+[ext_resource type="Shader" uid="uid://cqhwmi28c1oni" path="res://assets/shaders/scroll_bg.gdshader" id="1_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://nc5mrjlnwrl7" path="res://assets/textures/background/1.png" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://bshjkxxln542p" path="res://assets/textures/background/2.png" id="2_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://bx1u284hogden" path="res://assets/textures/background/4.png" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b3a3l1ktreh3o" path="res://scenes/player.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://d384ypxsroiy" path="res://components/obstacle.tscn" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://cpburqn1vkgra" path="res://components/kill_plane_player_floor.gd" id="8_0tnpc"]
+[ext_resource type="Script" uid="uid://cgi10isnfnokf" path="res://components/kill_plane_obstacle.gd" id="8_vtaks"]
+[ext_resource type="Script" uid="uid://pr0gnw4bjoq4" path="res://components/ad_manager.gd" id="10_vtaks"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
+shader = ExtResource("1_lbhrr")
+shader_parameter/speed = 0.0999999977648
+shader_parameter/parallax_distance = 0.30000000447036
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]
+shader = ExtResource("1_lbhrr")
+shader_parameter/speed = 0.0999999977648
+shader_parameter/parallax_distance = 0.80000001192096
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_u5sy4"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gee14"]
+
+[sub_resource type="Theme" id="Theme_0tnpc"]
+default_font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_8nqro"]
+font_size = 64
+outline_size = 32
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0tnpc"]
+font_size = 128
+outline_size = 64
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MainGame" type="Control" unique_id=746649868]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gee14")
+
+[node name="Background" type="Control" parent="." unique_id=1949323630]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="TextureRect" parent="Background" unique_id=307493984]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(-4.79, 0)
+texture = ExtResource("1_uwrxv")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Control2" type="TextureRect" parent="Background" unique_id=1874697954]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_iywne")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(-4.79, 0)
+texture = ExtResource("2_lnu2h")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Control3" type="TextureRect" parent="Background" unique_id=1405914838]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_lbhrr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(-4.79, 0)
+texture = ExtResource("3_lbhrr")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Player" parent="." unique_id=126395869 instance=ExtResource("5_iywne")]
+position = Vector2(540, 960)
+
+[node name="Obstacle" parent="." unique_id=632199861 instance=ExtResource("6_p57ef")]
+position = Vector2(2000, 1664)
+
+[node name="Obstacle2" parent="." unique_id=1051272686 instance=ExtResource("6_p57ef")]
+position = Vector2(3000, 1664)
+
+[node name="KillPlaneObstacle" type="Area2D" parent="." unique_id=2134302187]
+script = ExtResource("8_vtaks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillPlaneObstacle" unique_id=1117701606]
+position = Vector2(-512, 0)
+shape = SubResource("WorldBoundaryShape2D_u5sy4")
+
+[node name="KillPlanePlayer" type="Area2D" parent="." unique_id=1103353021]
+script = ExtResource("8_0tnpc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillPlanePlayer" unique_id=1704762458]
+position = Vector2(0, 1920)
+shape = SubResource("WorldBoundaryShape2D_gee14")
+
+[node name="DeathScreen" type="Control" parent="." unique_id=1140282753]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0tnpc")
+
+[node name="CenterContainer" type="CenterContainer" parent="DeathScreen" unique_id=940936892]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen/CenterContainer" unique_id=1209007203]
+layout_mode = 2
+theme_override_constants/separation = 128
+
+[node name="DeathLabel" type="Label" parent="DeathScreen/CenterContainer/VBoxContainer" unique_id=510565278]
+layout_mode = 2
+text = "TE MORISTE PAPIRRI"
+label_settings = SubResource("LabelSettings_8nqro")
+horizontal_alignment = 1
+
+[node name="RespawnButton" type="Button" parent="DeathScreen/CenterContainer/VBoxContainer" unique_id=1367548056]
+layout_mode = 2
+text = "RESPAWNEAR"
+
+[node name="AdReviveButton" type="Button" parent="DeathScreen/CenterContainer/VBoxContainer" unique_id=588197647]
+layout_mode = 2
+text = "MIRA UN ANUNCIO
+Y REVIVI"
+
+[node name="ScoreCounterContainer" type="MarginContainer" parent="." unique_id=719807790]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="ScoreCounter" type="Label" parent="ScoreCounterContainer" unique_id=1615956881]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "0"
+label_settings = SubResource("LabelSettings_0tnpc")
+
+[node name="AdManager" type="Node" parent="." unique_id=203109202]
+script = ExtResource("10_vtaks")
+
+[connection signal="area_entered" from="KillPlaneObstacle" to="KillPlaneObstacle" method="_on_area_entered"]
+[connection signal="body_entered" from="KillPlanePlayer" to="KillPlanePlayer" method="_on_body_entered"]
+[connection signal="pressed" from="DeathScreen/CenterContainer/VBoxContainer/RespawnButton" to="." method="_restart"]
+[connection signal="pressed" from="DeathScreen/CenterContainer/VBoxContainer/AdReviveButton" to="." method="_watch_ad_and_continue"]

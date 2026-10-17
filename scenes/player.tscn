@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b3a3l1ktreh3o"]
+
+[ext_resource type="Script" uid="uid://10r64v1tah48" path="res://components/player/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://4lx05h3gg7xr" path="res://assets/textures/flappy_fish.png" id="2_qhqgy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8nqro"]
+radius = 49.010204
+
+[node name="Player" type="CharacterBody2D" unique_id=126395869]
+script = ExtResource("1_g2els")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1957470212]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_qhqgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1111883106]
+position = Vector2(26, 6)
+shape = SubResource("CircleShape2D_8nqro")

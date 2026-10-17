@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://d384ypxsroiy"]
+
+[ext_resource type="Texture2D" uid="uid://bkmtil4bujhd5" path="res://assets/textures/background/seaweed_green_b_outline.png" id="1_ilk1n"]
+[ext_resource type="Script" uid="uid://ou6qwfbxc137" path="res://components/obstacle.gd" id="1_ohve5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8nqro"]
+size = Vector2(32, 1000)
+
+[node name="Obstacle" type="Node2D" unique_id=632199861]
+script = ExtResource("1_ohve5")
+
+[node name="Obstacle1" type="Area2D" parent="." unique_id=246099879]
+position = Vector2(0, -2048)
+rotation = -3.1415925
+scale = Vector2(1, 1.5)
+
+[node name="SeaweedGreenBOutline" type="Sprite2D" parent="Obstacle1" unique_id=1905452928]
+texture_filter = 1
+position = Vector2(0, -960)
+scale = Vector2(8.848, 30)
+texture = ExtResource("1_ilk1n")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Obstacle1" unique_id=1068356969]
+polygon = PackedVector2Array(-108, -6, -103, -162, -72, -389, -57, -503, -55, -694, -60, -868, -77, -996, -84, -1112, -63, -1191, -46, -1203, -22, -1185, -3, -1038, 5, -823, -1, -592, -32, -372, -40, -219, -35, -4, -35, -4)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Obstacle1" unique_id=365953989]
+polygon = PackedVector2Array(71, -906, 49, -800, 31, -536, 42, -293, 50, -66, 55, 2, 108, 8, 107, -61, 92, -422, 111, -676, 121, -832, 94, -903)
+
+[node name="Obstacle2" type="Area2D" parent="." unique_id=1856522673]
+position = Vector2(0, 2048)
+scale = Vector2(1, 1.5)
+
+[node name="SeaweedGreenBOutline" type="Sprite2D" parent="Obstacle2" unique_id=315438812]
+texture_filter = 1
+position = Vector2(0, -960)
+scale = Vector2(8.848, 30)
+texture = ExtResource("1_ilk1n")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Obstacle2" unique_id=2027642554]
+polygon = PackedVector2Array(-108, -6, -103, -162, -72, -389, -57, -503, -55, -694, -60, -868, -77, -996, -84, -1112, -63, -1191, -46, -1203, -22, -1185, -3, -1038, 5, -823, -1, -592, -32, -372, -40, -219, -35, -4, -35, -4)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Obstacle2" unique_id=449857417]
+polygon = PackedVector2Array(71, -906, 49, -800, 31, -536, 42, -293, 50, -66, 55, 2, 108, 8, 107, -61, 92, -422, 111, -676, 121, -832, 94, -903)
+
+[node name="ScoreUpper" type="Area2D" parent="." unique_id=1280524218]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreUpper" unique_id=1787382238]
+shape = SubResource("RectangleShape2D_8nqro")
+
+[connection signal="body_entered" from="Obstacle1" to="." method="_on_player_touch_obstacle"]
+[connection signal="body_entered" from="Obstacle2" to="." method="_on_player_touch_obstacle"]
+[connection signal="body_entered" from="ScoreUpper" to="." method="_on_player_touch_score_upper"]
